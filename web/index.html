@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanCycles - Premium Laundry Management Portal</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- ================= VIEW: PUBLIC LANDING / HOME PAGE ================= -->
+    <div id="public-container" class="public-container" style="display: block; width: 100%; min-height: 100vh; background: linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.25) 100%), url('images/laundry_bg.jpg') center/cover no-repeat fixed; padding-bottom: 5rem;">
+        
+        <!-- Public Navigation Header -->
+        <header class="public-header" style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; border-bottom: 1px solid rgba(226, 232, 240, 0.8); background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100;">
+            <div class="logo-section" onclick="handleLogoClick()" style="margin-bottom: 0; cursor: pointer;" title="Go to Home Page">
+                <div class="logo-icon">🪣</div>
+                <div class="logo-text">CleanCycles</div>
+            </div>
+            <nav style="display: flex; gap: 2rem; align-items: center;">
+                <a href="#services-pricing-section" style="color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: var(--transition-fast);" onmouseover="this.style.color='#0f172a'" onmouseout="this.style.color='var(--text-secondary)'">Services & Pricing</a>
+                <div id="header-auth-buttons" style="display: flex; gap: 0.75rem; align-items: center;">
+                    <button class="btn btn-secondary btn-sm" onclick="showPublicView('login')" style="padding: 0.5rem 1.25rem;">Log In</button>
+                    <button class="btn btn-sm" onclick="showPublicView('register')" style="padding: 0.5rem 1.25rem;">Register</button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Public Home View -->
+        <div id="public-home-view" class="public-subview" style="display: block; animation: fadeIn var(--transition-normal);">
+            <!-- Hero Banner -->
+            <section class="hero-section" style="max-width: 1000px; margin: 3rem auto 3rem auto; text-align: center; padding: 3.5rem 2.5rem; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: var(--radius-lg); border: 1px solid rgba(226, 232, 240, 0.9); box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);">
+                <span class="badge badge-washing" style="margin-bottom: 1.5rem; padding: 0.4rem 1rem; font-size: 0.85rem;">PREMIUM FABRIC CARE</span>
+                <h1 style="font-size: 3.5rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1.5rem; background: linear-gradient(135deg, #0f172a 40%, #4338ca 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    Professional Laundry Services,<br>Delivered Clean & Crisp
+                </h1>
+                <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 650px; margin: 0 auto 2.5rem auto; line-height: 1.6;">
+                    Experience hassle-free laundry management. Browse our services, sign up to place your laundry orders, and track real-time cleaning progress right from your device.
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button class="btn" onclick="showPublicView('register')" style="padding: 1rem 2rem; font-size: 1.05rem;">Schedule Your First Order</button>
+                    <a href="#services-pricing-section" class="btn btn-secondary" style="padding: 1rem 2rem; font-size: 1.05rem; text-decoration: none; display: flex; align-items: center;">Explore Catalog</a>
+                </div>
+            </section>
+
+            <!-- Features Highlights -->
+            <section style="max-width: 1100px; margin: 4rem auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; padding: 0 2rem;">
+                <div class="glass-panel glass-card" style="padding: 2rem; text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🫧</div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 700;">Deep Fabric Clean</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">State-of-the-art washing technology and premium eco-friendly detergents to preserve texture and color.</p>
+                </div>
+                <div class="glass-panel glass-card" style="padding: 2rem; text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">⚡</div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 700;">Express 24h Delivery</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">Quick turnaround times to ensure you always have fresh clothes ready. Fast, punctual, and reliable.</p>
+                </div>
+                <div class="glass-panel glass-card" style="padding: 2rem; text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📱</div>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; font-weight: 700;">Real-Time Tracking</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5;">Log in anytime to see if your laundry is washing, drying, or ready for pickup. Full transparent billing.</p>
+                </div>
+            </section>
+
+            <!-- Live Services Catalog Section -->
+            <section id="services-pricing-section" style="max-width: 1100px; margin: 6rem auto 2rem auto; padding: 0 2rem; scroll-margin-top: 100px;">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">Our Services & Price List</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Clear, transparent pricing per item or load. No hidden charges.</p>
+                </div>
+                <div class="services-config-grid" id="public-pricing-grid">
+                    <!-- Loaded dynamically from API -->
+                    <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">Loading catalog prices...</div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Public Login Card View -->
+        <div id="public-login-view" class="public-subview" style="display: none; animation: fadeIn var(--transition-normal); margin-top: 4rem;">
+            <div class="login-card glass-panel" style="margin: 0 auto;">
+                <div class="logo-section" onclick="handleLogoClick()" style="cursor: pointer;" title="Go to Home Page">
+                    <div class="logo-icon">🪣</div>
+                    <div class="logo-text">CleanCycles</div>
+                </div>
+                <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--text-primary);">Account Sign In</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username / Phone Number</label>
+                        <input type="text" id="username" class="form-input" placeholder="Admin username or Client phone..." required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="Enter password..." required autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn">
+                        <span>Sign In</span>
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="18" height="18">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                        </svg>
+                    </button>
+                </form>
+                <div style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                    New to CleanCycles? <a href="javascript:void(0)" onclick="showPublicView('register')" style="color: var(--color-secondary); text-decoration: none; font-weight: 600;">Create an Account</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Public Registration Card View -->
+        <div id="public-register-view" class="public-subview" style="display: none; animation: fadeIn var(--transition-normal); margin-top: 3rem;">
+            <div class="login-card glass-panel" style="margin: 0 auto; max-width: 480px; padding: 2.5rem 2.25rem;">
+                <div class="logo-section" onclick="handleLogoClick()" style="cursor: pointer;" title="Go to Home Page">
+                    <div class="logo-icon">🪣</div>
+                    <div class="logo-text">CleanCycles</div>
+                </div>
+                <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--text-primary);">Create Customer Account</h2>
+                
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="reg-name" class="form-label">Full Name <span style="color: var(--color-danger); font-weight: bold;">*</span></label>
+                        <input type="text" id="reg-name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-phone" class="form-label">Phone Number (This is your login username) <span style="color: var(--color-danger); font-weight: bold;">*</span></label>
+                        <input type="tel" id="reg-phone" class="form-input" pattern="[0-9]{10}" title="Phone number must be exactly 10 digits" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-address" class="form-label">Delivery Address <span style="color: var(--color-danger); font-weight: bold;">*</span></label>
+                        <input type="text" id="reg-address" class="form-input" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label for="reg-password" class="form-label">Password <span style="color: var(--color-danger); font-weight: bold;">*</span></label>
+                        <input type="password" id="reg-password" class="form-input" placeholder="Create secure password..." required autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="btn">
+                        <span>Register & Sign In</span>
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="18" height="18">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                        </svg>
+                    </button>
+                </form>
+                <div style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                    Already registered? <a href="javascript:void(0)" onclick="showPublicView('login')" style="color: var(--color-secondary); text-decoration: none; font-weight: 600;">Sign In Here</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ================= MAIN APPLICATION WORKSPACE ================= -->
+    <div id="app-container" class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass-panel">
+            <div class="sidebar-logo" onclick="handleLogoClick()" style="cursor: pointer;" title="Go to Dashboard">
+                <div class="logo-icon" style="width:32px; height:32px; font-size:1rem;">🪣</div>
+                <div class="logo-text" style="font-size:1.25rem;">CleanCycles</div>
+            </div>
+            
+            <ul class="sidebar-menu" id="sidebar-navigation-list">
+                <!-- Navigation items dynamically built based on ROLE in app.js -->
+            </ul>
+            
+            <div class="sidebar-user">
+                <div class="user-info">
+                    <div class="user-avatar" id="current-user-avatar">A</div>
+                    <div class="user-details">
+                        <h4 id="current-username">Admin User</h4>
+                        <span id="current-user-role">Administrator</span>
+                    </div>
+                </div>
+                <button class="btn-logout" id="btn-logout-trigger" title="Logout">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20" height="20">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Body -->
+        <main class="main-content">
+            
+            <!-- Page Header -->
+            <header class="header-bar">
+                <div class="page-title">
+                    <h1 id="page-heading">Dashboard</h1>
+                    <p id="page-description">Welcome to your laundry portal dashboard.</p>
+                </div>
+                <div class="quick-actions" id="quick-actions-bar">
+                    <!-- Set Dynamically in app.js -->
+                </div>
+            </header>
+
+            <!-- ================= VIEW: STAFF DASHBOARD ================= -->
+            <section id="view-dashboard" class="app-view">
+                <!-- Overview Stats Grid -->
+                <div class="stats-grid">
+                    <div class="glass-card stat-card">
+                        <div class="stat-info">
+                            <h3>Total Customers</h3>
+                            <p id="stat-customers">0</p>
+                        </div>
+                        <div class="stat-icon blue">👥</div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-info">
+                            <h3>Active Orders</h3>
+                            <p id="stat-orders">0</p>
+                        </div>
+                        <div class="stat-icon cyan">🧺</div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-info">
+                            <h3>Total Revenue</h3>
+                            <p id="stat-revenue">LKR 0.00</p>
+                        </div>
+                        <div class="stat-icon green">💰</div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-info">
+                            <h3>Services Offered</h3>
+                            <p id="stat-services">0</p>
+                        </div>
+                        <div class="stat-icon purple">🧼</div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Row -->
+                <div class="dashboard-row">
+                    <!-- Left: Recent Activity -->
+                    <div class="glass-panel recent-table-section">
+                        <h2 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;">Recent Activity Log</h2>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">Chronological latest orders</p>
+                        <div class="table-container" style="margin-top: 0;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Order Date</th>
+                                        <th>Total Price</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-orders-list">
+                                    <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No orders found.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Right: Quick Stats Breakdown -->
+                    <div class="glass-panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div>
+                            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--text-secondary);">Order Statuses</h3>
+                            <div class="chart-container" style="height: 180px;">
+                                <canvas id="canvas-status-pie" class="chart-canvas"></canvas>
+                            </div>
+                        </div>
+                        <div style="border-top: 1px solid var(--border-glass); padding-top: 1rem;">
+                            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--text-secondary);">Payment Methods</h3>
+                            <div id="payment-methods-breakdown" style="display:flex; flex-direction:column; gap:0.5rem;">
+                                <div style="color:var(--text-muted); font-size:0.85rem; text-align:center;">No payments recorded.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW: CUSTOMER DASHBOARD ================= -->
+            <section id="view-customer-dashboard" class="app-view">
+                <div class="stats-grid">
+                    <div class="glass-card stat-card">
+                        <div class="stat-info">
+                            <h3>My Active Orders</h3>
+                            <p id="cust-stat-active">0</p>
+                        </div>
+                        <div class="stat-icon blue">🧺</div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-info">
+                            <h3>Total Spendings</h3>
+                            <p id="cust-stat-revenue">LKR 0.00</p>
+                        </div>
+                        <div class="stat-icon green">💰</div>
+                    </div>
+                    <div class="glass-card stat-card">
+                        <div class="stat-info">
+                            <h3>Outstanding Balance</h3>
+                            <p id="cust-stat-balance" style="color: var(--color-danger);">LKR 0.00</p>
+                        </div>
+                        <div class="stat-icon red" style="background:rgba(239, 68, 68, 0.15); color:var(--color-danger);">💳</div>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="padding: 2rem; margin-top: 1.5rem;">
+                    <h2 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem;">My Active Laundry Tracks</h2>
+                    <div class="table-container" style="margin-top: 0;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Items Details</th>
+                                    <th>Total Cost</th>
+                                    <th>Order Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cust-active-orders-tbody">
+                                <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No active orders. Click "Place Order" to get started!</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW: CUSTOMER REGISTRY (Staff Only) ================= -->
+            <section id="view-customers" class="app-view">
+                <div class="tools-bar">
+                    <div class="search-wrapper">
+                        <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <input type="text" id="customer-search-input" class="search-input" placeholder="Search customers by name/phone...">
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-sm" id="btn-add-customer-trigger">👤 Add Customer</button>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <div class="table-container" style="margin-top: 0;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Customer Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Address</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customers-list-body">
+                                <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Loading customers...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW: ADD ORDER / PLACE ORDER ================= -->
+            <section id="view-add-order" class="app-view">
+                <div class="glass-panel" style="padding: 2.25rem; max-width: 800px; margin: 0 auto;">
+                    <h2 id="order-form-title" style="font-size: 1.35rem; font-weight: 700; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-glass); padding-bottom: 0.75rem;">Create New Laundry Order</h2>
+                    
+                    <form id="order-creation-form">
+                        <!-- Customer Select (Visible only for Staff) -->
+                        <div class="form-group" id="order-customer-select-group" style="max-width: 500px;">
+                            <label for="order-customer-select" class="form-label">Select Customer</label>
+                            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                <select id="order-customer-select" class="form-input" style="flex: 1; min-width: 0; background: #ffffff !important; color: #0f172a !important;">
+                                    <option value="" disabled selected>-- Select Customer --</option>
+                                </select>
+                                <button type="button" class="btn btn-secondary btn-sm" id="btn-order-new-customer" style="width: auto; flex-shrink: 0; padding: 0.75rem 1.25rem;">+ New Customer</button>
+                            </div>
+                            <!-- Selected Customer Profile Card -->
+                            <div id="selected-customer-preview-box" style="display: none; margin-top: 0.85rem; padding: 0.85rem 1rem; background: rgba(79, 70, 229, 0.06); border: 1px solid rgba(79, 70, 229, 0.25); border-radius: var(--radius-md);">
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--color-primary); font-weight: 700; margin-bottom: 0.25rem; letter-spacing: 0.5px;">👤 Selected Customer Profile</div>
+                                <div style="font-weight: 700; font-size: 1.05rem; color: var(--text-primary);" id="selected-cust-preview-name">-</div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.2rem;" id="selected-cust-preview-details">-</div>
+                            </div>
+                        </div>
+
+                        <!-- Locked Customer View (Visible only for Customer role) -->
+                        <div class="form-group" id="order-customer-locked-group" style="display:none; max-width: 450px; background:rgba(255,255,255,0.03); border:1px solid var(--border-glass); padding:1rem; border-radius:var(--radius-md);">
+                            <label class="form-label" style="margin-bottom:0.25rem;">Ordering As</label>
+                            <div style="font-weight:700; font-size:1.1rem; color:var(--color-secondary);" id="order-customer-locked-name">-</div>
+                            <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.25rem;" id="order-customer-locked-details">-</div>
+                        </div>
+
+                        <!-- Order Builder Section -->
+                        <div class="order-builder-section">
+                            <div class="builder-header">
+                                <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-secondary);">Order Line Items</h3>
+                                <button type="button" class="btn btn-secondary btn-sm" id="btn-add-item-row">➕ Add Service</button>
+                            </div>
+
+                            <!-- List Container -->
+                            <div id="order-items-rows-container">
+                                <!-- Generated Dynamically -->
+                            </div>
+
+                            <!-- Summary Box -->
+                            <div class="order-summary-box">
+                                <h3>Total Price</h3>
+                                <span class="total-price" id="order-total-price-display">LKR 0.00</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 2rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+                            <button type="button" class="btn btn-secondary" id="btn-cancel-order">Cancel</button>
+                            <button type="submit" class="btn">Place Order</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ================= VIEW: ORDERS / MY ORDERS ================= -->
+            <section id="view-orders" class="app-view">
+                <div class="tools-bar">
+                    <div class="search-wrapper">
+                        <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <input type="text" id="order-search-input" class="search-input" placeholder="Search orders by details...">
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <div class="table-container" style="margin-top: 0;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Order Date</th>
+                                    <th>Services Details</th>
+                                    <th>Total Amount</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-list-body">
+                                <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Loading orders...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW: SERVICES CATALOG ================= -->
+            <section id="view-services" class="app-view">
+                <div class="tools-bar">
+                    <h3 style="font-size: 1rem; font-weight: 500; color: var(--text-secondary);">Configured Services Catalog</h3>
+                    <button class="btn btn-sm" id="btn-add-service-trigger">🧼 Add Service</button>
+                </div>
+
+                <div class="services-config-grid" id="services-config-list">
+                    <!-- Loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- ================= VIEW: PAYMENTS HISTORY ================= -->
+            <section id="view-payments" class="app-view">
+                <div class="tools-bar">
+                    <h3 style="font-size: 1rem; font-weight: 500; color: var(--text-secondary);">Payment Transaction Records</h3>
+                    <button class="btn btn-sm btn-success" id="btn-add-payment-trigger">💰 Record Payment</button>
+                </div>
+
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <div class="table-container" style="margin-top: 0;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Payment ID</th>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Payment Date</th>
+                                    <th>Payment Method</th>
+                                    <th style="text-align: right;">Amount Paid</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payments-list-body">
+                                <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Loading payments...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= VIEW: REPORTS ================= -->
+            <section id="view-reports" class="app-view">
+                <div class="report-grid">
+                    <div class="glass-panel chart-wrapper">
+                        <h3>Order Status Distributions</h3>
+                        <canvas id="canvas-status-chart" class="chart-canvas"></canvas>
+                    </div>
+
+                    <div class="glass-panel chart-wrapper">
+                        <h3>Payment Transactions Distribution (LKR)</h3>
+                        <canvas id="canvas-payments-chart" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="padding: 1.5rem; margin-top: 1.5rem;">
+                    <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem;">Revenue & Performance Overview</h3>
+                    <div class="table-container" style="margin-top: 0;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Report Key</th>
+                                    <th>Metric Value</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Gross Revenue</td>
+                                    <td id="report-gross-revenue" style="font-weight: 700; color: var(--color-success);">LKR 0.00</td>
+                                    <td>Total cash flow recorded from customer payments.</td>
+                                </tr>
+                                <tr>
+                                    <td>Registered Clients</td>
+                                    <td id="report-total-clients" style="font-weight: 700;">0</td>
+                                    <td>Total number of customers saved in the database.</td>
+                                </tr>
+                                <tr>
+                                    <td>Outstanding Incomplete Orders</td>
+                                    <td id="report-active-orders" style="font-weight: 700; color: var(--color-warning);">0</td>
+                                    <td>Orders currently undergoing laundry processing (pending to ready status).</td>
+                                </tr>
+                                <tr>
+                                    <td>Services Catalog count</td>
+                                    <td id="report-services-count" style="font-weight: 700;">0</td>
+                                    <td>Active service offerings (Wash, dry cleaning, ironing, etc.)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- Modal: Add/Edit Customer -->
+    <div class="modal-overlay" id="modal-customer">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2 id="modal-customer-title">Add New Customer</h2>
+                <button class="btn-close" onclick="closeModal('modal-customer')">&times;</button>
+            </div>
+            <form id="customer-form">
+                <input type="hidden" id="customer-id-input">
+                <div class="form-group">
+                    <label for="customer-name-input" class="form-label">Full Name <span style="color: var(--color-danger); font-weight: bold;">*</span></label>
+                    <input type="text" id="customer-name-input" class="form-input" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-phone-input" class="form-label">Phone Number (Login username) <span style="color: var(--color-danger); font-weight: bold;">*</span></label>
+                    <input type="tel" id="customer-phone-input" class="form-input" placeholder="e.g. 0776471928" pattern="[0-9]{10}" title="Phone number must be exactly 10 digits" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-address-input" class="form-label">Address <span style="color: var(--color-danger); font-weight: bold;">*</span></label>
+                    <input type="text" id="customer-address-input" class="form-input" placeholder="123 Main St, Springfield" required>
+                </div>
+                <div class="form-group">
+                    <label for="customer-password-input" class="form-label">Password</label>
+                    <input type="password" id="customer-password-input" class="form-input" placeholder="Set password (default is customer123)" autocomplete="new-password">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-customer')">Cancel</button>
+                    <button type="submit" class="btn">Save Customer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Add/Edit Service -->
+    <div class="modal-overlay" id="modal-service">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2 id="modal-service-title">Add New Service</h2>
+                <button class="btn-close" onclick="closeModal('modal-service')">&times;</button>
+            </div>
+            <form id="service-form">
+                <input type="hidden" id="service-id-input">
+                <div class="form-group">
+                    <label for="service-name-input" class="form-label">Service Name</label>
+                    <input type="text" id="service-name-input" class="form-input" placeholder="Silk Dry Clean" required>
+                </div>
+                <div class="form-group">
+                    <label for="service-price-input" class="form-label">Price per Unit (LKR)</label>
+                    <input type="number" id="service-price-input" class="form-input" step="0.01" min="0" placeholder="5.50" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-service')">Cancel</button>
+                    <button type="submit" class="btn">Save Service</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Record Payment -->
+    <div class="modal-overlay" id="modal-payment">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2>Record Customer Payment</h2>
+                <button class="btn-close" onclick="closeModal('modal-payment')">&times;</button>
+            </div>
+            <form id="payment-form">
+                <div class="form-group">
+                    <label for="payment-order-select" class="form-label">Select Order</label>
+                    <select id="payment-order-select" class="form-input" required>
+                        <option value="" disabled selected>-- Select Order --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="payment-amount-input" class="form-label">Payment Amount (LKR)</label>
+                    <input type="number" id="payment-amount-input" class="form-input" step="0.01" min="0.01" placeholder="0.00" required>
+                    <div id="payment-due-hint" style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.25rem;">Select an order to view pending balance.</div>
+                </div>
+                <div class="form-group">
+                    <label for="payment-method-select" class="form-label">Payment Method</label>
+                    <select id="payment-method-select" class="form-input" required>
+                        <option value="Cash" selected>Cash</option>
+                        <option value="Card">Credit/Debit Card</option>
+                        <option value="Mobile">Mobile Transfer</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-payment')">Cancel</button>
+                    <button type="submit" class="btn btn-success">Save Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: View & Print Receipt -->
+    <div class="modal-overlay" id="modal-receipt">
+        <div class="modal-content" style="max-width: 480px; padding: 0; background: transparent; border: none; box-shadow: none;">
+            <div class="receipt-modal-content" id="receipt-modal-content-area">
+                <!-- Monospace invoice receipt populated on the fly -->
+            </div>
+            <div style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 1rem;">
+                <button class="btn btn-secondary" onclick="closeModal('modal-receipt')">Close</button>
+                <button class="btn btn-primary btn-print-receipt" onclick="window.print()">Print Receipt</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
